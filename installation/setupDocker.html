@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>6. Running Tudat using Docker &mdash; TU Delft Astrodynamic Toolbox  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="TU Delft Astrodynamic Toolbox  documentation" href="../index.html"/>
+        <link rel="up" title="Installation Guide" href="index.html"/>
+        <link rel="next" title="7. Troubleshooting" href="troubleshooting/index.html"/>
+        <link rel="prev" title="5. Tudat on a remote Linux server" href="setupLinuxServer.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TU Delft Astrodynamic Toolbox
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Start Page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../started/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Installation Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setupDevEnvironment.html">1. Setup Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="downloadTudatBundle/index.html">2. Download Tudat Bundle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configureTudatLibraries.html">3. Compile and Test Tudat Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creatingNewApps.html">4. Creating Tudat Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setupLinuxServer.html">5. Tudat on a remote Linux server</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6. Running Tudat using Docker</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-docker-community-edition-ce-on-your-computer">6.1. Install Docker Community Edition (CE) on your computer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#some-useful-commands">6.2. Some useful commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-a-tudat-docker-container-from-an-image">6.3. Running a Tudat Docker container from an Image</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#running-on-linux">6.3.1. Running on Linux</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#running-on-a-virtual-machine-vm">6.3.2. Running on a Virtual Machine (VM)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#running-on-windows">6.3.3. Running on Windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#running-on-mac">6.3.4. Running on Mac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#for-all-platforms">6.3.5. For all platforms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/index.html">7. Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials and Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ/index.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developerGuide/index.html">Developer Guide</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TU Delft Astrodynamic Toolbox</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Installation Guide</a> &raquo;</li>
+        
+      <li>6. Running Tudat using Docker</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/installation/setupDocker.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="running-tudat-using-docker">
+<span id="setupdocker"></span><h1>6. Running Tudat using Docker<a class="headerlink" href="#running-tudat-using-docker" title="Permalink to this headline">¶</a></h1>
+<p>If you need a quick introduction to Docker, here is a 10 minute read: <a class="reference external" href="https://docs.docker.com/engine/docker-overview/">https://docs.docker.com/engine/docker-overview/</a></p>
+<p>The absolute bare essentials:</p>
+<ul class="simple">
+<li><p>Docker allows you to run a computer system in a so-called container. A container can run on a laptop, on a server or in the cloud. A container is isolated from other processes and containers running on the same hardware. This means it can use a different operating system from the host hardware.</p></li>
+<li><p>Docker works with images. An image defines a computer configuration, including the operating system and installed software. An image is built up of layers.</p></li>
+<li><p>You can’t work in the Docker image itself. You need to run a Docker container from an image. It’s possible to run more than one container from the same image. When connecting to the container, you can define network configurations and storage volumes.</p></li>
+</ul>
+<div class="section" id="install-docker-community-edition-ce-on-your-computer">
+<h2>6.1. Install Docker Community Edition (CE) on your computer<a class="headerlink" href="#install-docker-community-edition-ce-on-your-computer" title="Permalink to this headline">¶</a></h2>
+<p>You can find instructions to install Docker here:
+<a class="reference external" href="https://docs.docker.com/install/">https://docs.docker.com/install/</a>.
+Note that there are different installation procedures, depending on the computer platform you are using.</p>
+<p>You can check that your Docker environment has been installed successfully with the command <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">--version</span></code>. This should give a version number and build hash.</p>
+</div>
+<div class="section" id="some-useful-commands">
+<h2>6.2. Some useful commands<a class="headerlink" href="#some-useful-commands" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>List images with: <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">ls</span></code></p></li>
+<li><p>Remove an image: <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">rm</span> <span class="pre">&lt;hash</span> <span class="pre">of</span> <span class="pre">image&gt;</span></code></p></li>
+<li><p>List all containers, including those that have stopped: <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">container</span> <span class="pre">ls</span> <span class="pre">-a</span></code></p></li>
+<li><p>Remove a container with: <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">container</span> <span class="pre">rm</span> <span class="pre">&lt;hash</span> <span class="pre">of</span> <span class="pre">container&gt;</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="running-a-tudat-docker-container-from-an-image">
+<h2>6.3. Running a Tudat Docker container from an Image<a class="headerlink" href="#running-a-tudat-docker-container-from-an-image" title="Permalink to this headline">¶</a></h2>
+<p>A Docker image of the TudatBundle has been created for you here:
+<a class="reference external" href="https://hub.docker.com/r/sebranchett/tudat/tags">https://hub.docker.com/r/sebranchett/tudat/tags</a>. Check the tag name of the version you wish to use, probably the most recent one. You can access an image using the format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;/&lt;</span><span class="n">repository</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">tagname</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;username&gt;</span></code> is ‘sebranchett’, <code class="docutils literal notranslate"><span class="pre">&lt;repository&gt;</span></code> is ‘tudat’ and <code class="docutils literal notranslate"><span class="pre">tagname</span></code> is the name of the tag, or version, you wish to use.</p>
+<p>Pull the image you wish to use to your local computer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">pull</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;/&lt;</span><span class="n">repository</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">tagname</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="section" id="running-on-linux">
+<h3>6.3.1. Running on Linux<a class="headerlink" href="#running-on-linux" title="Permalink to this headline">¶</a></h3>
+<p>You can run a container from your image with this command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">net</span><span class="o">=</span><span class="n">host</span> <span class="o">--</span><span class="n">env</span><span class="o">=</span><span class="s2">&quot;DISPLAY&quot;</span> <span class="o">--</span><span class="n">volume</span><span class="o">=</span><span class="s2">&quot;$HOME/.Xauthority:/root/.Xauthority:rw&quot;</span> <span class="o">-</span><span class="n">it</span> <span class="o">--</span><span class="n">rm</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;/&lt;</span><span class="n">repository</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">tagname</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>If you want to know how and why this works, read this post: <a class="reference external" href="https://medium.com/&#64;SaravSun/running-gui-applications-inside-docker-containers-83d65c0db110">https://medium.com/&#64;SaravSun/running-gui-applications-inside-docker-containers-83d65c0db110</a>
+The <code class="docutils literal notranslate"><span class="pre">-it</span></code> flag lets you work in the container interactively and the <code class="docutils literal notranslate"><span class="pre">--rm</span></code> flag deletes the container (but not the image) once you <code class="docutils literal notranslate"><span class="pre">exit</span></code> the container. You may want to remove the <code class="docutils literal notranslate"><span class="pre">--rm</span></code> flag if you want to return to the container, although getting a GUI to work again may not be possible.</p>
+</div>
+<div class="section" id="running-on-a-virtual-machine-vm">
+<h3>6.3.2. Running on a Virtual Machine (VM)<a class="headerlink" href="#running-on-a-virtual-machine-vm" title="Permalink to this headline">¶</a></h3>
+<p>You need to <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">DISPLAY=localhost:0</span></code> BEFORE you ssh into the VM. You also need to specify the <code class="docutils literal notranslate"><span class="pre">–XY</span></code> flag when using ssh as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">XY</span> <span class="n">netID</span><span class="nd">@myvmbastion</span><span class="o">.</span><span class="n">tudelft</span><span class="o">.</span><span class="n">nl</span>
+</pre></div>
+</div>
+<p>Once you are logged in again, you can run the docker container as for a regular Linux computer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">net</span><span class="o">=</span><span class="n">host</span> <span class="o">--</span><span class="n">env</span><span class="o">=</span><span class="s2">&quot;DISPLAY&quot;</span> <span class="o">--</span><span class="n">volume</span><span class="o">=</span><span class="s2">&quot;$HOME/.Xauthority:/root/.Xauthority:rw&quot;</span> <span class="o">-</span><span class="n">it</span> <span class="o">--</span><span class="n">rm</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;/&lt;</span><span class="n">repository</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">tagname</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-on-windows">
+<h3>6.3.3. Running on Windows<a class="headerlink" href="#running-on-windows" title="Permalink to this headline">¶</a></h3>
+<p>You need to perform an extra step. These posts explain in detail:
+<a class="reference external" href="https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde">https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde</a>
+<a class="reference external" href="https://stackoverflow.com/questions/40024892/windows-10-docker-host-display-gui-application-from-linux-container">https://stackoverflow.com/questions/40024892/windows-10-docker-host-display-gui-application-from-linux-container</a></p>
+<p>You need an X11 display server for Microsoft Windows. In the links above they use VcXsrv and Xming. This document was tested using Xming.</p>
+<p>It is important that you enable <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">Access</span> <span class="pre">Control</span></code>. For Xming this can be done by performing a default installation and then modifying the properties (right-click on Xming shortcut). Add the <code class="docutils literal notranslate"><span class="pre">-ac</span></code> flag to the Target definition so that it reads something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&quot;C:\Program Files (x86)\Xming\Xming.exe&quot; :0 -clipboard -multiwindow –ac
+</pre></div>
+</div>
+<p>When you want to run Docker, FIRST start your X11 display server with <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">Access</span> <span class="pre">Control</span></code>, then (stop and) start you Docker environment (Docker Quickstart Icon). Look up the IP address of your <code class="docutils literal notranslate"><span class="pre">Ethernet</span> <span class="pre">adapter</span> <span class="pre">VirtualBox</span> <span class="pre">Host-Only</span> <span class="pre">Network</span></code> using the command <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code>. There may be 2 and you may have to try both before things work. Set you DISPLAY environment using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">DISPLAY</span><span class="o">=</span><span class="s2">&quot;&lt;IP address&gt;:0&quot;</span>
+</pre></div>
+</div>
+<p>for example: <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">DISPLAY=&quot;192.168.99.1:0&quot;</span></code>
+You can run the docker container as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">env</span><span class="o">=</span><span class="s2">&quot;DISPLAY&quot;</span> <span class="o">-</span><span class="n">it</span> <span class="o">--</span><span class="n">rm</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;/&lt;</span><span class="n">repository</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">tagname</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Note that running Docker on Windows 7 can use up a lot of your C: drive. You can periodically remove the folder <code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;username&gt;\.docker</span></code>. This will remove all your local images and containers, but will not uninstall Docker.</p>
+</div>
+<div class="section" id="running-on-mac">
+<h3>6.3.4. Running on Mac<a class="headerlink" href="#running-on-mac" title="Permalink to this headline">¶</a></h3>
+<p>You need to perform an extra step. This post explains in detail:
+<a class="reference external" href="https://sourabhbajaj.com/blog/2017/02/07/gui-applications-docker-mac/">https://sourabhbajaj.com/blog/2017/02/07/gui-applications-docker-mac/</a></p>
+<p>You need to install a display server such as XQuartz and run it with <code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">connections</span> <span class="pre">from</span> <span class="pre">network</span> <span class="pre">clients</span></code>. You can then set the IP environment variable to the IP address of your local machine.</p>
+<p>You can run the docker container as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>docker run --env DISPLAY=$IP:0 --volume=/tmp/.X11-unix:/tmp/.X11-unix -it --rm &lt;username&gt;/&lt;repository&gt;:&lt;tagname&gt;
+</pre></div>
+</div>
+<p>** NOT TESTED **</p>
+</div>
+<div class="section" id="for-all-platforms">
+<h3>6.3.5. For all platforms<a class="headerlink" href="#for-all-platforms" title="Permalink to this headline">¶</a></h3>
+<p>Once you are up and running in a Docker container, you can check if the GUI is working properly by typing <code class="docutils literal notranslate"><span class="pre">xeyes</span></code>. You should see 2 eyes that follow your mouse around the screen.</p>
+<p>If that works you can close xeyes and launch Qt Creator by typing <code class="docutils literal notranslate"><span class="pre">qtcreator</span></code>.</p>
+<p>You can rerun the standard tests by typing <code class="docutils literal notranslate"><span class="pre">ctest</span></code> on the command line in the tudatBundle directory. It will take some time to run them all.</p>
+<p>Type <code class="docutils literal notranslate"><span class="pre">exit</span></code> to exit the container. If you used the <code class="docutils literal notranslate"><span class="pre">--rm</span></code> flag, this will automatically delete the container, leaving the image intact.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="troubleshooting/index.html" class="btn btn-neutral float-right" title="7. Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="setupLinuxServer.html" class="btn btn-neutral" title="5. Tudat on a remote Linux server" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Delft University of Technology.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header .arrow").click(function() {
+            $(this).closest('.toggle').children().not(".header").toggle(400);
+            $(this).toggleClass("open");
+            // $(this).html() == "More" ? $(this).html('Less') : $(this).html('More');
+        });
+        $(".showall").click(function() {
+            $(".toggle > *").show(400);
+            $(".toggle .header .arrow").addClass("open");
+        });
+        $(".hideall").click(function() {
+            $(".toggle > *").hide(400);
+            $(".toggle .header").show(400);
+            $(".toggle .header .arrow").removeClass("open");
+        });
+    });
+</script>
+
+
+</body>
+</html>

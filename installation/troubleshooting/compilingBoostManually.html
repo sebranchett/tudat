@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>6.3. Compiling boost manually &mdash; TU Delft Astrodynamic Toolbox  documentation</title>
+  <title>7.3. Compiling boost manually &mdash; TU Delft Astrodynamic Toolbox  documentation</title>
   
 
   
@@ -30,6 +30,8 @@
   
 
   
+    <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  
     <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
 
@@ -38,9 +40,9 @@
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="TU Delft Astrodynamic Toolbox  documentation" href="../../index.html"/>
-        <link rel="up" title="6. Troubleshooting" href="index.html"/>
+        <link rel="up" title="7. Troubleshooting" href="index.html"/>
         <link rel="next" title="Tutorials and Documentation" href="../../tutorials/index.html"/>
-        <link rel="prev" title="6.2. Command line tools" href="commandLineTools.html"/> 
+        <link rel="prev" title="7.2. Command line tools" href="commandLineTools.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -99,10 +101,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../configureTudatLibraries.html">3. Compile and Test Tudat Libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../creatingNewApps.html">4. Creating Tudat Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../setupLinuxServer.html">5. Tudat on a remote Linux server</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">6. Troubleshooting</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="installationErrors.html">6.1. Installation errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commandLineTools.html">6.2. Command line tools</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">6.3. Compiling boost manually</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../setupDocker.html">6. Running Tudat using Docker</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">7. Troubleshooting</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="installationErrors.html">7.1. Installation errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commandLineTools.html">7.2. Command line tools</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">7.3. Compiling boost manually</a></li>
 </ul>
 </li>
 </ul>
@@ -110,7 +113,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials and Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../FAQ/index.html">FAQ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../developerGuide/index.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../socis.html">SOCIS 2019</a></li>
 </ul>
 
             
@@ -157,9 +159,9 @@
         
           <li><a href="../index.html">Installation Guide</a> &raquo;</li>
         
-          <li><a href="index.html">6. Troubleshooting</a> &raquo;</li>
+          <li><a href="index.html">7. Troubleshooting</a> &raquo;</li>
         
-      <li>6.3. Compiling boost manually</li>
+      <li>7.3. Compiling boost manually</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -179,62 +181,57 @@
            <div itemprop="articleBody">
             
   <div class="section" id="compiling-boost-manually">
-<span id="troubleshootinginstallationcompilingboostmanually"></span><h1>6.3. Compiling boost manually<a class="headerlink" href="#compiling-boost-manually" title="Permalink to this headline">¶</a></h1>
+<span id="troubleshootinginstallationcompilingboostmanually"></span><h1>7.3. Compiling boost manually<a class="headerlink" href="#compiling-boost-manually" title="Permalink to this headline">¶</a></h1>
 <p>The top-level CMakeLists.txt of Tudat Bundle, downloads, extracts, configures, builds and installs Boost for you. Although this process is completely automated it can happen that it fails somewhere doing the former.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If the automated process fails, it is necessary to take note of where it fails please copy the output of CMake for specifics.</p>
+<p class="admonition-title">Note</p>
+<p>If the automated process fails, it is necessary to take note of where it fails please copy the output of CMake for specifics.</p>
 </div>
 <p>In case it fails perform the following steps:</p>
 <ol class="arabic simple">
-<li><dl class="first docutils">
-<dt>Find the Boost version TudatBundle is trying to build.</dt>
-<dd><ol class="first last arabic">
-<li>Open tudatBundle/CMakeLists.txt</li>
-<li>Look for the uncommented (without a # in front) instance of set(BoostVersion 1.XX.0).</li>
+<li><dl class="simple">
+<dt>Find the Boost version TudatBundle is trying to build.</dt><dd><ol class="arabic simple">
+<li><p>Open tudatBundle/CMakeLists.txt</p></li>
+<li><p>Look for the uncommented (without a # in front) instance of set(BoostVersion 1.XX.0).</p></li>
 </ol>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt><a class="reference external" href="https://sourceforge.net/projects/boost/files/boost/">https://sourceforge.net/projects/boost/files/boost/</a></dt>
-<dd><ol class="first last arabic">
-<li>Pick the version corresponding to your version. Do not select beta.</li>
-<li>It doesn’t matter which archive type you select, generally pick .tar.bz2 for Linux and macOS and .zip for Windows.</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://sourceforge.net/projects/boost/files/boost/">https://sourceforge.net/projects/boost/files/boost/</a></dt><dd><ol class="arabic simple">
+<li><p>Pick the version corresponding to your version. Do not select beta.</p></li>
+<li><p>It doesn’t matter which archive type you select, generally pick .tar.bz2 for Linux and macOS and .zip for Windows.</p></li>
 </ol>
 </dd>
 </dl>
 </li>
-<li>Unpack the folder somewhere, for instance /home/user/boost or c:boost.</li>
-<li>Open terminal emulator and go to the Boost folder.</li>
-<li><dl class="first docutils">
-<dt>Run bootstrap:</dt>
-<dd><ol class="first last arabic">
-<li>Linux and macOS: ./bootstrap.sh –with-toolset=gcc</li>
-<li>Windows: .bootstrap.bat gcc</li>
+<li><p>Unpack the folder somewhere, for instance /home/user/boost or c:boost.</p></li>
+<li><p>Open terminal emulator and go to the Boost folder.</p></li>
+<li><dl class="simple">
+<dt>Run bootstrap:</dt><dd><ol class="arabic simple">
+<li><p>Linux and macOS: ./bootstrap.sh –with-toolset=gcc</p></li>
+<li><p>Windows: .bootstrap.bat gcc</p></li>
 </ol>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>If successful, run bjam2:</dt>
-<dd><ol class="first last arabic">
-<li>Linux and macOS: ./b2 toolset=gcc link=static threading=multi –build-dir=Build stage variant=release –layout=tagged cxxflags=-std=c++11 –with-filesystem –with-system –with-thread –with-regex –with-date_time –with-test</li>
-<li>Windows: .b2.exe toolset=gcc link=static threading=multi –build-dir=Build stage variant=release –layout=tagged cxxflags=-std=c++11 –with-filesystem –with-system –with-thread –with-regex –with-date_time –with-test</li>
+<li><dl class="simple">
+<dt>If successful, run bjam2:</dt><dd><ol class="arabic simple">
+<li><p>Linux and macOS: ./b2 toolset=gcc link=static threading=multi –build-dir=Build stage variant=release –layout=tagged cxxflags=-std=c++11 –with-filesystem –with-system –with-thread –with-regex –with-date_time –with-test</p></li>
+<li><p>Windows: .b2.exe toolset=gcc link=static threading=multi –build-dir=Build stage variant=release –layout=tagged cxxflags=-std=c++11 –with-filesystem –with-system –with-thread –with-regex –with-date_time –with-test</p></li>
 </ol>
 </dd>
 </dl>
 </li>
-<li>In case of errors try, to identify if bjam fails for each module or only for select modules.</li>
-<li>Re-run the b2 command several times, each time with only one thread and a different –with-[module] argument.</li>
+<li><p>In case of errors try, to identify if bjam fails for each module or only for select modules.</p></li>
+<li><p>Re-run the b2 command several times, each time with only one thread and a different –with-[module] argument.</p></li>
 </ol>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<dl class="last docutils">
-<dt>If you have made changes to your configuration it is important to clean your cache.</dt>
-<dd><ul class="first last simple">
-<li>Navigate to your build folder.</li>
-<li>Delete <code class="docutils literal"><span class="pre">CMakeCache.txt</span></code>.</li>
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>If you have made changes to your configuration it is important to clean your cache.</dt><dd><ul class="simple">
+<li><p>Navigate to your build folder.</p></li>
+<li><p>Delete <code class="docutils literal notranslate"><span class="pre">CMakeCache.txt</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -254,7 +251,7 @@
         <a href="../../tutorials/index.html" class="btn btn-neutral float-right" title="Tutorials and Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="commandLineTools.html" class="btn btn-neutral" title="6.2. Command line tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="commandLineTools.html" class="btn btn-neutral" title="7.2. Command line tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -296,7 +293,8 @@
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

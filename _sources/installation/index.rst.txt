@@ -14,6 +14,7 @@ Getting started with Tudat is a simple five-step process, so please follow this 
    configureTudatLibraries
    creatingNewApps
    setupLinuxServer
+   setupDocker
    troubleshooting/index
 
 

@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Creating a Tudat Docker image &mdash; TU Delft Astrodynamic Toolbox  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="TU Delft Astrodynamic Toolbox  documentation" href="../../index.html"/>
+        <link rel="up" title="Developer Guide" href="../index.html"/>
+        <link rel="next" title="How to Write the Wiki" href="../howToWriteTheWiki/howToWriteTheWiki.html"/>
+        <link rel="prev" title="Adding features" href="../extendingMATLAB/addingFeatures.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TU Delft Astrodynamic Toolbox
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Start Page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/index.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials and Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ/index.html">FAQ</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Developer Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../githubBasics/githubBasics.html">Github Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../updatingTudat/updatingTudat.html">Updating Tudat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../addingFeatures/index.html">Adding Features to Tudat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qtBasics/qtBasics.html">Qt Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applicationCMakeLists/applicationCMakeLists.html">Application CMakelists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extendingJSON/index.html">Extending the JSON Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extendingMATLAB/index.html">Extending the MATLAB Interface</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating a Tudat Docker image</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-dockerfile">Creating a Dockerfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-the-docker-image">Creating the Docker image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loading-the-image-to-dockerhub">Loading the image to DockerHub</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howToWriteTheWiki/howToWriteTheWiki.html">How to Write the Wiki</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TU Delft Astrodynamic Toolbox</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Developer Guide</a> &raquo;</li>
+        
+      <li>Creating a Tudat Docker image</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/developerGuide/creatingDockerImage/creatingDockerImage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="creating-a-tudat-docker-image">
+<span id="creatingdockerimage"></span><h1>Creating a Tudat Docker image<a class="headerlink" href="#creating-a-tudat-docker-image" title="Permalink to this headline">¶</a></h1>
+<p>To install and use Docker for Tudat, please see <a class="reference external" href="../../installation/setupDocker.html">Running Tudat using Docker</a>.</p>
+<p>This documentation describes how to create a Dockerfile, use the Dockerfile to create an image and how to load the image to DockerHub.</p>
+<p>The current documentation was tested on a standard TU Delft Faculty Managed Server (Virtual Machine or VM for short):</p>
+<ul class="simple">
+<li><p>Ubuntu 18.04 LTS (64bits)</p></li>
+<li><p>1 processor</p></li>
+<li><p>2 GB internal memory</p></li>
+<li><p>Root disk 20 GB, Swap disk 2 GB</p></li>
+<li><p>1 network interface</p></li>
+</ul>
+<div class="section" id="creating-a-dockerfile">
+<h2>Creating a Dockerfile<a class="headerlink" href="#creating-a-dockerfile" title="Permalink to this headline">¶</a></h2>
+<p>In a clean directory, create a plain text file called <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code> with the following content:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FROM</span> <span class="n">ubuntu</span><span class="p">:</span><span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span>
+
+<span class="n">RUN</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span> <span class="o">&amp;&amp;</span>                  \
+    <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">upgrade</span> <span class="o">-</span><span class="n">y</span> <span class="o">&amp;&amp;</span>              \
+    <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span>                 \
+            <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">cmake</span>      \
+            <span class="n">git</span>                        \
+            <span class="n">vim</span>                        \
+            <span class="n">x11</span><span class="o">-</span><span class="n">apps</span>                   \
+            <span class="n">qtcreator</span>                <span class="o">&amp;&amp;</span>\
+    <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">clean</span>
+
+<span class="n">RUN</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Tudat</span><span class="o">/</span><span class="n">tudatBundle</span><span class="o">.</span><span class="n">git</span>
+<span class="n">WORKDIR</span> <span class="n">tudatBundle</span>
+<span class="n">RUN</span> <span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">dev</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">docker</span> <span class="o">&lt;</span><span class="n">commit</span> <span class="nb">hash</span><span class="o">&gt;</span>
+<span class="n">RUN</span> <span class="n">git</span> <span class="n">submodule</span> <span class="n">update</span> <span class="o">--</span><span class="n">init</span> <span class="o">--</span><span class="n">recursive</span>
+
+<span class="n">RUN</span> <span class="n">cmake</span> <span class="n">CMakeLists</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">RUN</span> <span class="n">cmake</span> <span class="o">--</span><span class="n">build</span> <span class="o">.</span> <span class="o">--</span><span class="n">target</span> <span class="nb">all</span>
+<span class="n">RUN</span> <span class="n">ctest</span>
+
+<span class="n">CMD</span> <span class="p">[</span><span class="s2">&quot;/bin/bash&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Replace &lt;version&gt; with the Ubuntu version you wish to use (e.g. 18.04) and &lt;commit hash&gt; with the hash of the tudatBundle commit you wish to use (<a class="reference external" href="https://github.com/Tudat/tudatBundle/commits/master">https://github.com/Tudat/tudatBundle/commits/master</a>, e.g. 6451ba5).</p>
+<p>The first line makes sure you start from the correct version of the operating system. The update and upgrade  lines ensure that the software packages available to your operating system are up to date and that any installed packages are upgraded to the latest version.</p>
+<p>The next block installs the packages you need to run Tudat. <code class="docutils literal notranslate"><span class="pre">build-essential</span> <span class="pre">cmake</span></code> installs everything you need to run cmake for C++ projects. <code class="docutils literal notranslate"><span class="pre">git</span></code> is used to copy the Tudat source code and for version control. <code class="docutils literal notranslate"><span class="pre">vim</span></code> is included so that you can edit files. <code class="docutils literal notranslate"><span class="pre">x11-apps</span></code> includes xeyes, which can be useful when debugging GUI (graphical user interface) problems. <code class="docutils literal notranslate"><span class="pre">qtcreator</span></code> is useful when developing code in Tudat.</p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span></code> is then used to make a copy of the Tudat software. After moving to the tudatBundle directory, <code class="docutils literal notranslate"><span class="pre">git</span></code> is used again to check out the specified commit version (from the master branch) and then to update submodules of the Tudat package.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cmake</span></code> is used to generate the tudatBundle project build system and to build the project. Once the project has been built, <code class="docutils literal notranslate"><span class="pre">ctest</span></code> is used to perform the standard Tudat tests.</p>
+<p>The last line gives you a shell when you run a Docker container.</p>
+</div>
+<div class="section" id="creating-the-docker-image">
+<h2>Creating the Docker image<a class="headerlink" href="#creating-the-docker-image" title="Permalink to this headline">¶</a></h2>
+<p>To build an image, first check that your Docker environment has been installed successfully: the command <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">--version</span></code> should give a version number and build hash. Then create a Dockerfile (without a filename extension) as described above.</p>
+<p>Here is an example of how to create the image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">--</span><span class="n">label</span> <span class="n">OS</span><span class="o">=</span><span class="s2">&quot;Ubuntu 18.04&quot;</span> <span class="o">--</span><span class="n">label</span> <span class="n">Tudat_branch</span><span class="o">=</span><span class="n">main</span> <span class="o">--</span><span class="n">label</span> <span class="n">Tudat_commit</span><span class="o">=</span><span class="mi">20191112</span> <span class="o">-</span><span class="n">t</span> <span class="o">&lt;</span><span class="n">repository</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">tagname</span><span class="o">&gt;</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>By default, Docker will read the Dockerfile in the current directory. The labels are optional (<code class="docutils literal notranslate"><span class="pre">--label</span> <span class="pre">&lt;label</span> <span class="pre">name&gt;=&lt;label</span> <span class="pre">value&gt;</span></code>) and can be inspected with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">inspect</span> <span class="o">-</span><span class="n">f</span> <span class="s2">&quot;{{json .Config.Labels }}&quot;</span> <span class="o">&lt;</span><span class="n">repository</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">tagname</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Note that, if a build fails for some reason, for example if a test fails, the image will not be tagged properly. Also the container, used to create the image, will not be removed automatically.</p>
+<p>If you want to retag and relabel an image (with hash <code class="docutils literal notranslate"><span class="pre">12ae80a0b804</span></code> in this example), you can create a new image by creating an extra labelled layer on top of the original image. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;FROM 12ae80a0b804&quot;</span> <span class="o">|</span> <span class="n">docker</span> <span class="n">build</span> <span class="o">--</span><span class="n">label</span> <span class="n">OS</span><span class="o">=</span><span class="s2">&quot;Ubuntu 18.04&quot;</span> <span class="o">--</span><span class="n">label</span> <span class="n">Tudat_branch</span><span class="o">=</span><span class="n">main</span> <span class="o">--</span><span class="n">label</span> <span class="n">tudat_commit</span><span class="o">=</span><span class="mi">20191112</span> <span class="o">-</span><span class="n">t</span> <span class="o">&lt;</span><span class="n">repository</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">tagname</span><span class="o">&gt;</span> <span class="o">-</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-the-image-to-dockerhub">
+<h2>Loading the image to DockerHub<a class="headerlink" href="#loading-the-image-to-dockerhub" title="Permalink to this headline">¶</a></h2>
+<p>For more information read: <a class="reference external" href="https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html">https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html</a>.</p>
+<p>If you don’t already have one, create an account on DockerHub: <a class="reference external" href="https://hub.docker.com/">https://hub.docker.com/</a>
+If you don’t already have a repository, sign into your account, click on the <code class="docutils literal notranslate"><span class="pre">dockerhub</span></code> whale and then on the <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">Repository</span> <span class="pre">+</span></code> button. Make your repository public so that other people can use your image.
+Back on the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">login</span> <span class="o">--</span><span class="n">username</span><span class="o">=&lt;</span><span class="n">username</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>follow the instructions and then tag the image you want to upload before pushing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">tag</span> <span class="o">&lt;</span><span class="nb">hash</span> <span class="n">of</span> <span class="n">image</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;/&lt;</span><span class="n">repository</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">tagname</span><span class="o">&gt;</span>
+<span class="n">docker</span> <span class="n">push</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;/&lt;</span><span class="n">repository</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">tagname</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>You can find an example here: <a class="reference external" href="https://hub.docker.com/r/sebranchett/tudat/tags">https://hub.docker.com/r/sebranchett/tudat/tags</a>.</p>
+<p>It is now good practice to test your image on different operating systems.
+See <a class="reference external" href="../../installation/setupDocker.html#running-a-tudat-docker-container-from-an-image">Running a Tudat Docker container from an Image</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../howToWriteTheWiki/howToWriteTheWiki.html" class="btn btn-neutral float-right" title="How to Write the Wiki" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../extendingMATLAB/addingFeatures.html" class="btn btn-neutral" title="Adding features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Delft University of Technology.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header .arrow").click(function() {
+            $(this).closest('.toggle').children().not(".header").toggle(400);
+            $(this).toggleClass("open");
+            // $(this).html() == "More" ? $(this).html('Less') : $(this).html('More');
+        });
+        $(".showall").click(function() {
+            $(".toggle > *").show(400);
+            $(".toggle .header .arrow").addClass("open");
+        });
+        $(".hideall").click(function() {
+            $(".toggle > *").hide(400);
+            $(".toggle .header").show(400);
+            $(".toggle .header .arrow").removeClass("open");
+        });
+    });
+</script>
+
+
+</body>
+</html>
